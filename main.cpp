@@ -21,8 +21,6 @@ int main()
         a.arr.setPrimitiveType(sf::PrimitiveType::Quads);
         a.arr.resize(4);
 
-        a.setFrameSpeed(500);
-
         a.arr[1].position = sf::Vector2f(100, 0);
         a.arr[2].position = sf::Vector2f(100, 100);
         a.arr[3].position = sf::Vector2f(0, 100);

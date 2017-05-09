@@ -10,6 +10,8 @@ animationActor::animationActor(sf::VertexArray *verticies) :
 
 bool animationActor::needsUpdate(fe::time elapsedTime)
     {
+        if (m_animationFrameSpeed == 0) return false;
+
         bool update = (int)(m_animationFrameSpeed - (elapsedTime - m_lastCheckedTime).asMilliseconds()) <= 0;
         if (update) 
             {
@@ -36,6 +38,11 @@ void animationActor::setCurrentFrame(unsigned int frame)
 unsigned int animationActor::getCurrentFrame() const
     {
         return m_currentFrame;
+    }
+
+void animationActor::iterateFrame(int amount)
+    {
+        m_currentFrame += amount;
     }
 
 void animationActor::updateVerticies(sf::Vector2u offset, sf::Vector2u size)

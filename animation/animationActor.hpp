@@ -34,6 +34,8 @@ class animationActor
             void setCurrentFrame(unsigned int frame);
             // Get the current frame the animation is at
             unsigned int getCurrentFrame() const;
+            // Iterate the current frame by the amount specified
+            void iterateFrame(int amount);
 
             // Updates the verticies according to the texture
             void updateVerticies(sf::Vector2u offset, sf::Vector2u size);
