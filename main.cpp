@@ -28,6 +28,9 @@ int main()
         sf::Texture animation;
         animation.loadFromFile("testStrip.bmp");
 
+        a.setStartFrame(1);
+        a.setFrameSpeed(500);
+
         animator anim;
         anim.subscribe(&a, anim.addAnimation(&animation, sf::Vector2u(100, 100)));
 

@@ -17,8 +17,9 @@ class animationActor
             unsigned int m_animationFrameSpeed; // how long it takes for a single frame to iterate in milliseconds
             
             unsigned int m_maxFrames;
+            unsigned int m_startFrame;
             unsigned int m_currentFrame;
-     
+ 
         public:
             animationActor(sf::VertexArray *verticies);
 
@@ -29,6 +30,16 @@ class animationActor
             void setFrameSpeed(unsigned int animationSpeed);
             // Get how long it takes a frame to iterate in milliseconds
             unsigned int getFrameSpeed() const;
+
+            // Set the maximum frame that the animation can play through
+            void setMaxFrame(unsigned int maxFrames);
+            // Get the maximum frame the animation can play through
+            unsigned int getMaxFrame();
+
+            // Set the first frame which the animation will uses
+            void setStartFrame(unsigned int frame);
+            // Get the first frame which the animation will use
+            unsigned int getStartFrame();
 
             // Set the current frame the animation is at
             void setCurrentFrame(unsigned int frame);

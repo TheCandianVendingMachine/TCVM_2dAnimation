@@ -13,13 +13,20 @@ animationTexture::animationTexture(const sf::Texture *texture, const sf::Vector2
 
 std::pair<sf::Vector2u, sf::Vector2u> animationTexture::getTexture(animationActor *actor)
     {
-        if ((int)actor->getCurrentFrame() < 0)
+        unsigned int maxFrame = m_maxFrames;
+        if (maxFrame > actor->getMaxFrame() && actor->getMaxFrame() != 0)
             {
-                actor->setCurrentFrame(m_maxFrames + (int)actor->getCurrentFrame());
+                maxFrame = actor->getMaxFrame();
             }
-        else if (actor->getCurrentFrame() >= m_maxFrames)
+
+        if (actor->getCurrentFrame() >= maxFrame)
             {
-                actor->setCurrentFrame(actor->getCurrentFrame() % m_maxFrames);
+                actor->setCurrentFrame(actor->getCurrentFrame() % maxFrame);
+            }
+        
+        if (actor->getCurrentFrame() < actor->getStartFrame())
+            {
+                actor->setCurrentFrame(actor->getStartFrame());
             }
 
         sf::Vector2u frameOffset = m_framePosition;

@@ -4,7 +4,9 @@
 animationActor::animationActor(sf::VertexArray *verticies) :
     m_verticies(verticies),
     m_animationFrameSpeed(0.f),
-    m_currentFrame(0)
+    m_currentFrame(0),
+    m_maxFrames(0),
+    m_startFrame(0)
     {
     }
 
@@ -30,6 +32,26 @@ unsigned int animationActor::getFrameSpeed() const
         return m_animationFrameSpeed;
     }
 
+void animationActor::setMaxFrame(unsigned int maxFrames)
+    {
+        m_maxFrames = maxFrames;
+    }
+
+unsigned int animationActor::getMaxFrame()
+    {
+        return m_maxFrames;
+    }
+
+void animationActor::setStartFrame(unsigned int frame)
+    {
+        m_startFrame = frame;
+    }
+
+unsigned int animationActor::getStartFrame()
+    {
+        return m_startFrame;
+    }
+
 void animationActor::setCurrentFrame(unsigned int frame)
     {
         m_currentFrame = frame;
@@ -42,7 +64,7 @@ unsigned int animationActor::getCurrentFrame() const
 
 void animationActor::iterateFrame(int amount)
     {
-        m_currentFrame += amount;
+        setCurrentFrame(getCurrentFrame() + amount);
     }
 
 void animationActor::updateVerticies(sf::Vector2u offset, sf::Vector2u size)

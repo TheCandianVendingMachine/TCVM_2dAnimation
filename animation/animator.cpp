@@ -40,7 +40,7 @@ void animator::updateTextures()
                             {
                                 auto textureOffset = texture.getTexture(actor);
                                 actor->updateVerticies(textureOffset.first, textureOffset.second);
-                                actor->setCurrentFrame(actor->getCurrentFrame() + 1);
+                                actor->iterateFrame(1);
                             }
                     }
             }
