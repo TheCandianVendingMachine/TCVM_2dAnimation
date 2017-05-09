@@ -1,17 +1,21 @@
 #include "animationActor.hpp"
 #include <SFML/Graphics/VertexArray.hpp>
 
-animationActor::animationActor(sf::VertexArray *verticies, unsigned int maxFrames) :
+animationActor::animationActor(sf::VertexArray *verticies) :
     m_verticies(verticies),
     m_animationFrameSpeed(0.f),
-    m_maxFrames(maxFrames),
     m_currentFrame(0)
     {
     }
 
 bool animationActor::needsUpdate(fe::time elapsedTime)
     {
-        return !(elapsedTime.asMilliseconds() % m_animationFrameSpeed);
+        bool update = (int)(m_animationFrameSpeed - (elapsedTime - m_lastCheckedTime).asMilliseconds()) <= 0;
+        if (update) 
+            {
+                m_lastCheckedTime = elapsedTime;
+            }
+        return update;
     }
 
 void animationActor::setFrameSpeed(unsigned int animationSpeed)

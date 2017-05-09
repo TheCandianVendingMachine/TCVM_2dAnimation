@@ -13,14 +13,17 @@ class animationActor;
 class animationTexture
     {
         private:
-            const sf::Vector2u m_frameSize;
-            const sf::Vector2u m_framePosition;
+            sf::Vector2u m_frameSize;
+            sf::Vector2u m_framePosition;
             sf::Vector2u m_animationSize;
+
+            unsigned int m_maxFrames;
 
             // If the strip is vertical or not
             bool m_vertical;
 
         public:
+            animationTexture() {}
             animationTexture(const sf::Texture *texture, const sf::Vector2u frameSize, const sf::Vector2u frameOffset, bool verticalStrip);
             std::pair<sf::Vector2u, sf::Vector2u> getTexture(animationActor *actor);
 

@@ -13,13 +13,14 @@ class animationActor
     {
         private:
             sf::VertexArray *m_verticies;
+            fe::time m_lastCheckedTime;
             unsigned int m_animationFrameSpeed; // how long it takes for a single frame to iterate in milliseconds
             
             unsigned int m_maxFrames;
             unsigned int m_currentFrame;
      
         public:
-            animationActor(sf::VertexArray *verticies, unsigned int maxFrames);
+            animationActor(sf::VertexArray *verticies);
 
             // If the actor needs to update its texture this will return true
             bool needsUpdate(fe::time elapsedtime);

@@ -18,6 +18,9 @@ void animator::removeAnimation(fe::Handle handle)
 void animator::subscribe(animationActor *actor, fe::Handle animation)
     {
         m_actors[animation].push_back(actor);
+        auto textureOffset = getObject(animation).getTexture(actor);
+        actor->updateVerticies(textureOffset.first, textureOffset.second);
+        actor->setCurrentFrame(0);
     }
 
 void animator::unsubscribe(animationActor *actor, fe::Handle animation)
@@ -37,7 +40,6 @@ void animator::updateTextures()
                             {
                                 auto textureOffset = texture.getTexture(actor);
                                 actor->updateVerticies(textureOffset.first, textureOffset.second);
-                        
                                 actor->setCurrentFrame(actor->getCurrentFrame() + 1);
                             }
                     }
