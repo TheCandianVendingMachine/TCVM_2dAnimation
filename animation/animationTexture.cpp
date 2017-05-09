@@ -2,12 +2,12 @@
 #include "animationActor.hpp"
 #include <SFML/Graphics/Texture.hpp>
 
-animationTexture::animationTexture(const sf::Texture *texture, const sf::Vector2u frameSize, const sf::Vector2u frameOffset, bool verticalStrip) :
+animationTexture::animationTexture(const sf::Vector2u frameSize, const sf::Vector2u frameOffset, const sf::Vector2u animationSize, bool verticalStrip) :
     m_frameSize(frameSize),
     m_framePosition(frameOffset),
-    m_vertical(verticalStrip)
+    m_vertical(verticalStrip),
+    m_animationSize(animationSize)
     {
-        m_animationSize = texture->getSize();
         m_maxFrames = m_vertical ? m_animationSize.y / m_frameSize.y : m_animationSize.x / m_frameSize.x;
     }
 

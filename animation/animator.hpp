@@ -22,7 +22,7 @@ class animator : fe::handleManager<animationTexture>
             fe::clock m_elapsedTime;
 
         public:
-            fe::Handle addAnimation(const sf::Texture *texture, sf::Vector2u frameSize, sf::Vector2u texturePosition = sf::Vector2u(0, 0), bool vertical = true);
+            fe::Handle addAnimation(sf::Vector2u frameSize, sf::Vector2u animationSize, sf::Vector2u texturePosition = sf::Vector2u(0, 0), bool vertical = true);
             void removeAnimation(fe::Handle handle);
                 
             void subscribe(animationActor *actor, fe::Handle animation);

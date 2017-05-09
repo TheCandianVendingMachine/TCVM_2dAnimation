@@ -24,7 +24,7 @@ class animationTexture
 
         public:
             animationTexture() {}
-            animationTexture(const sf::Texture *texture, const sf::Vector2u frameSize, const sf::Vector2u frameOffset, bool verticalStrip);
+            animationTexture(const sf::Vector2u frameSize, const sf::Vector2u frameOffset, const sf::Vector2u animationSize, bool verticalStrip);
             std::pair<sf::Vector2u, sf::Vector2u> getTexture(animationActor *actor);
 
     };

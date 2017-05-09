@@ -32,7 +32,7 @@ int main()
         a.setFrameSpeed(500);
 
         animator anim;
-        anim.subscribe(&a, anim.addAnimation(&animation, sf::Vector2u(100, 100)));
+        anim.subscribe(&a, anim.addAnimation(sf::Vector2u(100, 100), animation.getSize()));
 
         sf::RenderWindow app(sf::VideoMode(70 * 16, 70 * 9), "Animation", sf::Style::Close);
         //app.setFramerateLimit(60);

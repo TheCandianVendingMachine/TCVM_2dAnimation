@@ -4,9 +4,9 @@
 #include <algorithm>
 #include <SFML/Graphics/VertexArray.hpp>
 
-fe::Handle animator::addAnimation(const sf::Texture *texture, sf::Vector2u frameSize, sf::Vector2u texturePosition, bool vertical)
+fe::Handle animator::addAnimation(sf::Vector2u frameSize, sf::Vector2u animationSize, sf::Vector2u texturePosition, bool vertical)
     {
-        return addObject(animationTexture(texture, frameSize, texturePosition, vertical));
+        return addObject(animationTexture(frameSize, texturePosition, animationSize, vertical));
     }
 
 void animator::removeAnimation(fe::Handle handle)
