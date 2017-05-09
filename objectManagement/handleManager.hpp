@@ -1,8 +1,6 @@
 // handleManager.hpp
 // stores handles to objects being pushed. Inherit off of to enable handles
 #pragma once
-#include "../debug/logger.hpp"
-
 #include <vector>
 #include <algorithm>
 
@@ -73,11 +71,11 @@ namespace fe
                     }
                 else if (m_handles.begin() + handle >= m_handles.end())
                     {
-                        FE_LOG_WARNING("Cannot remove object with handle \"", handle, "\"");
+                        //FE_LOG_WARNING("Cannot remove object with handle \"", handle, "\"");
                     }
                 else
                     {
-                        FE_LOG_DEBUG("Object with handle \"", handle, "\" inactive");
+                        //FE_LOG_DEBUG("Object with handle \"", handle, "\" inactive");
                     }
             }
 
@@ -86,7 +84,7 @@ namespace fe
             {
                 if (handle >= m_handles.size())
                     {
-                        FE_LOG_WARNING("Cannot get handle \"", handle, "\"");
+                        //FE_LOG_WARNING("Cannot get handle \"", handle, "\"");
                         return false;
                     }
 
@@ -98,12 +96,12 @@ namespace fe
             {
                 if (handle >= m_handles.size())
                     {
-                        FE_LOG_WARNING("Cannot retrieve object with handle \"", handle, "\"");
+                        //FE_LOG_WARNING("Cannot retrieve object with handle \"", handle, "\"");
                         return T();
                     }
                 else if (!m_handles[handle].active)
                     {
-                        FE_LOG_DEBUG("Object with handle \"", handle, "\" inactive");
+                        //FE_LOG_DEBUG("Object with handle \"", handle, "\" inactive");
                     }
 
                 return m_objects[m_handles[handle].handle];

@@ -1,6 +1,7 @@
 // animator.hpp
 // allows the subscription to a animation with options
 #pragma once
+#include <unordered_map>
 #include <vector>
 #include <SFML/System/Vector2.hpp>
 
@@ -11,18 +12,19 @@ namespace sf
         class Texture;
     }
 
+class animationTexture;
 class animationActor;
-class animator : fe::handleManager<sf::Texture*>
+class animator : fe::handleManager<const animationTexture>
     {
         private:
-            std::vector<animationActor*> m_actors;
+            std::unordered_map<fe::Handle, std::vector<animationActor*>> m_actors;
 
         public:
-            void addAnimation(const sf::Texture *texture, sf::Vector2u frameSize);
-            void removeAnimation(const sf::Texture *texture);
-
-            void subscribe(animationActor *actor);
-            void unsubscribe(animationActor *actor);
+            fe::Handle addAnimation(const sf::Texture *texture, sf::Vector2u frameSize, sf::Vector2u texturePosition = sf::Vector2u(0, 0), bool vertical = true);
+            void removeAnimation(fe::Handle handle);
+                
+            void subscribe(animationActor *actor, fe::Handle animation);
+            void unsubscribe(animationActor *actor, fe::Handle anitmation);
 
             void updateTextures();
     };
