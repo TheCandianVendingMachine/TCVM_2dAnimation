@@ -6,6 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "../objectManagement/handleManager.hpp"
+#include "../time/clock.hpp"
 
 namespace sf
     {
@@ -18,6 +19,7 @@ class animator : fe::handleManager<const animationTexture>
     {
         private:
             std::unordered_map<fe::Handle, std::vector<animationActor*>> m_actors;
+            fe::clock m_elapsedTime;
 
         public:
             fe::Handle addAnimation(const sf::Texture *texture, sf::Vector2u frameSize, sf::Vector2u texturePosition = sf::Vector2u(0, 0), bool vertical = true);

@@ -33,9 +33,13 @@ void animator::updateTextures()
                 auto texture = getObject(animation.first);
                 for (auto &actor : animation.second)
                     {
-                        auto textureOffset = texture.getTexture(actor);
-                        actor->updateVerticies(textureOffset.first, textureOffset.second);
-                        actor->setCurrentFrame(actor->getCurrentFrame() + 1);
+                        if (actor->needsUpdate(m_elapsedTime.getTime()))
+                            {
+                                auto textureOffset = texture.getTexture(actor);
+                                actor->updateVerticies(textureOffset.first, textureOffset.second);
+                        
+                                actor->setCurrentFrame(actor->getCurrentFrame() + 1);
+                            }
                     }
             }
     }

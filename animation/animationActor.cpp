@@ -9,9 +9,19 @@ animationActor::animationActor(sf::VertexArray *verticies, unsigned int maxFrame
     {
     }
 
-void animationActor::setFrameSpeed(float animationSpeed)
+bool animationActor::needsUpdate(fe::time elapsedTime)
+    {
+        return !(elapsedTime.asMilliseconds() % m_animationFrameSpeed);
+    }
+
+void animationActor::setFrameSpeed(unsigned int animationSpeed)
     {
         m_animationFrameSpeed = animationSpeed;
+    }
+
+unsigned int animationActor::getFrameSpeed() const
+    {
+        return m_animationFrameSpeed;
     }
 
 void animationActor::setCurrentFrame(unsigned int frame)
@@ -19,7 +29,7 @@ void animationActor::setCurrentFrame(unsigned int frame)
         m_currentFrame = frame;
     }
 
-unsigned int animationActor::getCurrentFrame()
+unsigned int animationActor::getCurrentFrame() const
     {
         return m_currentFrame;
     }
