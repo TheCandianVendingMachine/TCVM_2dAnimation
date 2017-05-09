@@ -64,7 +64,16 @@ unsigned int animationActor::getCurrentFrame() const
 
 void animationActor::iterateFrame(int amount)
     {
-        setCurrentFrame(getCurrentFrame() + amount);
+        setCurrentFrame(m_currentFrame + amount);
+        if (m_currentFrame >= m_maxFrames && m_maxFrames != 0)
+            {
+                setCurrentFrame(m_currentFrame % m_maxFrames);
+            }
+        
+        if (m_currentFrame < m_startFrame)
+            {
+                setCurrentFrame(m_startFrame);
+            }
     }
 
 void animationActor::updateVerticies(sf::Vector2u offset, sf::Vector2u size)
