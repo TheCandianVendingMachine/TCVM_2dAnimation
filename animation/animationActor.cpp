@@ -1,18 +1,38 @@
 #include "animationActor.hpp"
+#include "../time/clock.hpp"
 #include <SFML/Graphics/VertexArray.hpp>
 
 animationActor::animationActor(sf::VertexArray *verticies) :
     m_verticies(verticies),
     m_animationFrameSpeed(0.f),
     m_currentFrame(0),
-    m_maxFrames(0),
-    m_startFrame(0)
+    m_endFrame(0),
+    m_startFrame(0),
+    m_play(false)
     {
+    }
+
+void animationActor::play(bool value)
+    {
+        m_play = value;
+        if (!m_play)
+            {
+                m_pauseTime = fe::clock::getTimeSinceEpoch();
+            }
+        else
+            {
+                m_lastCheckedTime += fe::clock::getTimeSinceEpoch() - m_pauseTime;
+            }
+    }
+
+bool animationActor::isPlaying() const
+    {
+        return m_play;
     }
 
 bool animationActor::needsUpdate(fe::time elapsedTime)
     {
-        if (m_animationFrameSpeed == 0) return false;
+        if (m_animationFrameSpeed == 0 || !m_play) return false;
 
         bool update = (int)(m_animationFrameSpeed - (elapsedTime - m_lastCheckedTime).asMilliseconds()) <= 0;
         if (update) 
@@ -32,14 +52,14 @@ unsigned int animationActor::getFrameSpeed() const
         return m_animationFrameSpeed;
     }
 
-void animationActor::setMaxFrame(unsigned int maxFrames)
+void animationActor::setEndFrame(unsigned int maxFrames)
     {
-        m_maxFrames = maxFrames;
+        m_endFrame = maxFrames;
     }
 
-unsigned int animationActor::getMaxFrame()
+unsigned int animationActor::getEndFrame()
     {
-        return m_maxFrames;
+        return m_endFrame;
     }
 
 void animationActor::setStartFrame(unsigned int frame)
@@ -65,9 +85,9 @@ unsigned int animationActor::getCurrentFrame() const
 void animationActor::iterateFrame(int amount)
     {
         setCurrentFrame(m_currentFrame + amount);
-        if (m_currentFrame >= m_maxFrames && m_maxFrames != 0)
+        if (m_currentFrame > m_endFrame && m_endFrame != 0)
             {
-                setCurrentFrame(m_currentFrame % m_maxFrames);
+                setCurrentFrame(m_currentFrame % m_endFrame);
             }
         
         if (m_currentFrame < m_startFrame)

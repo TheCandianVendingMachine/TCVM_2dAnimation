@@ -5,6 +5,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+#include <iostream>
+
 #include "animation/animationActor.hpp"
 #include "animation/animationTexture.hpp"
 #include "animation/animator.hpp"
@@ -26,15 +28,17 @@ int main()
         a.arr[3].position = sf::Vector2f(0, 100);
 
         sf::Texture animation;
-        animation.loadFromFile("testStrip.bmp");
+        animation.loadFromFile("testStrip.png");
 
+        a.play(true);
+        a.setFrameSpeed(200);
         a.setStartFrame(1);
-        a.setFrameSpeed(500);
+        a.setEndFrame(3);
 
         animator anim;
         anim.subscribe(&a, anim.addAnimation(sf::Vector2u(100, 100), animation.getSize()));
 
-        sf::RenderWindow app(sf::VideoMode(70 * 16, 70 * 9), "Animation", sf::Style::Close);
+        sf::RenderWindow app(sf::VideoMode(1280, 800), "Animation", sf::Style::Close);
         //app.setFramerateLimit(60);
         while (app.isOpen())
             {
@@ -45,6 +49,13 @@ int main()
                             {
                                 case sf::Event::Closed:
                                     app.close();
+                                    break;
+                                case sf::Event::KeyReleased:
+                                    if (event.key.code == sf::Keyboard::Space) 
+                                        {
+                                            a.play(!a.isPlaying());
+                                            std::cout << std::boolalpha << "Playing: " << a.isPlaying() << "\n";
+                                        }
                                     break;
                                 default:
                                     break;

@@ -1,6 +1,7 @@
 #include "animationTexture.hpp"
 #include "animationActor.hpp"
 #include <SFML/Graphics/Texture.hpp>
+#include <iostream>
 
 animationTexture::animationTexture(const sf::Vector2u frameSize, const sf::Vector2u frameOffset, const sf::Vector2u animationSize, bool verticalStrip) :
     m_frameSize(frameSize),
@@ -14,17 +15,12 @@ animationTexture::animationTexture(const sf::Vector2u frameSize, const sf::Vecto
 std::pair<sf::Vector2u, sf::Vector2u> animationTexture::getTexture(animationActor *actor)
     {
         unsigned int maxFrame = m_maxFrames;
-        if (maxFrame > actor->getMaxFrame() && actor->getMaxFrame() != 0)
+        if (maxFrame > actor->getEndFrame() && actor->getEndFrame() != 0)
             {
-                maxFrame = actor->getMaxFrame();
+                maxFrame = actor->getEndFrame();
             }
 
-        if (actor->getCurrentFrame() >= maxFrame)
-            {
-                actor->setCurrentFrame(actor->getCurrentFrame() % maxFrame);
-            }
-        
-        if (actor->getCurrentFrame() < actor->getStartFrame())
+        if (actor->getCurrentFrame() >= maxFrame || actor->getCurrentFrame() < actor->getStartFrame())
             {
                 actor->setCurrentFrame(actor->getStartFrame());
             }

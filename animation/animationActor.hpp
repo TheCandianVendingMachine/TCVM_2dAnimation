@@ -14,14 +14,20 @@ class animationActor
         private:
             sf::VertexArray *m_verticies;
             fe::time m_lastCheckedTime;
+            fe::time m_pauseTime;
             unsigned int m_animationFrameSpeed; // how long it takes for a single frame to iterate in milliseconds
             
-            unsigned int m_maxFrames;
+            unsigned int m_endFrame;
             unsigned int m_startFrame;
             unsigned int m_currentFrame;
+
+            bool m_play;
  
         public:
             animationActor(sf::VertexArray *verticies);
+
+            void play(bool value);
+            bool isPlaying() const;
 
             // If the actor needs to update its texture this will return true
             bool needsUpdate(fe::time elapsedtime);
@@ -32,9 +38,9 @@ class animationActor
             unsigned int getFrameSpeed() const;
 
             // Set the maximum frame that the animation can play through
-            void setMaxFrame(unsigned int maxFrames);
+            void setEndFrame(unsigned int maxFrames);
             // Get the maximum frame the animation can play through
-            unsigned int getMaxFrame();
+            unsigned int getEndFrame();
 
             // Set the first frame which the animation will uses
             void setStartFrame(unsigned int frame);
