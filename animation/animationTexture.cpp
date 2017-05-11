@@ -9,7 +9,7 @@ animationTexture::animationTexture(const sf::Vector2u frameSize, const sf::Vecto
     m_vertical(verticalStrip),
     m_animationSize(animationSize)
     {
-        m_maxFrames = m_vertical ? m_animationSize.y / m_frameSize.y : m_animationSize.x / m_frameSize.x;
+        m_maxFrames = m_vertical ? (m_animationSize.y - frameOffset.y) / m_frameSize.y : (m_animationSize.x - frameOffset.x) / m_frameSize.x;
     }
 
 std::pair<sf::Vector2u, sf::Vector2u> animationTexture::getTexture(animationActor *actor)

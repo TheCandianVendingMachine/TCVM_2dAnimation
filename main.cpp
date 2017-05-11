@@ -20,6 +20,8 @@ struct testObject : public animationActor
 int main()
     {
         testObject a;
+        testObject b;
+
         a.arr.setPrimitiveType(sf::PrimitiveType::Quads);
         a.arr.resize(4);
 
@@ -27,16 +29,30 @@ int main()
         a.arr[2].position = sf::Vector2f(100, 100);
         a.arr[3].position = sf::Vector2f(0, 100);
 
+        b.arr.setPrimitiveType(sf::PrimitiveType::Quads);
+        b.arr.resize(4);
+
+        b.arr[0].position = sf::Vector2f(300, 300);
+        b.arr[1].position = sf::Vector2f(400, 300);
+        b.arr[2].position = sf::Vector2f(400, 400);
+        b.arr[3].position = sf::Vector2f(300, 400);
+
         sf::Texture animation;
         animation.loadFromFile("testStrip.png");
 
         a.play(true);
-        a.setFrameSpeed(200);
-        a.setStartFrame(1);
+        a.setFrameSpeed(1500);
+        a.setStartFrame(0);
         a.setEndFrame(3);
 
+        b.play(true);
+        b.setFrameSpeed(500);
+
         animator anim;
-        anim.subscribe(&a, anim.addAnimation(sf::Vector2u(100, 100), animation.getSize()));
+        auto testStrip = anim.addAnimation(sf::Vector2u(100, 100), animation.getSize(), sf::Vector2u(6, 0));
+
+        anim.subscribe(&a, testStrip);
+        anim.subscribe(&b, testStrip);
 
         sf::RenderWindow app(sf::VideoMode(1280, 800), "Animation", sf::Style::Close);
         //app.setFramerateLimit(60);
@@ -65,7 +81,8 @@ int main()
                 anim.updateTextures();
 
                 app.clear(sf::Color::White);
-                app.draw(a.arr, sf::RenderStates(&animation));
+                app.draw(a.arr, &animation);
+                app.draw(b.arr, &animation);
                 app.display();
             }
 

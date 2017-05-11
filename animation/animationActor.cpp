@@ -32,7 +32,7 @@ bool animationActor::isPlaying() const
 
 bool animationActor::needsUpdate(fe::time elapsedTime)
     {
-        if (m_animationFrameSpeed == 0 || !m_play) return false;
+        if (!m_play) return false;
 
         bool update = (int)(m_animationFrameSpeed - (elapsedTime - m_lastCheckedTime).asMilliseconds()) <= 0;
         if (update) 
